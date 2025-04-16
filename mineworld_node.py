@@ -460,13 +460,12 @@ class MineWorldAction:
         # Generate next frame
         try:
             with torch.no_grad(), torch.autocast(device_type='cuda', dtype=torch.float16):
-                torch._dynamo.config.disable = True
+                # Allow torch.compile from lvm.py to work
                 next_tokens, last_pos = model.transformer.decode_img_token_for_gradio(
                     input_action=action_tensor, 
                     position_id=state["last_pos"],
                     max_new_tokens=TOKEN_PER_IMAGE + 1
                 )
-                torch._dynamo.config.disable = False
             
             next_tokens = torch.cat(next_tokens, dim=-1).cuda()
             
@@ -582,13 +581,12 @@ class MineWorldGenerate:
             # Generate next frame
             try:
                 with torch.no_grad(), torch.autocast(device_type='cuda', dtype=torch.float16):
-                    torch._dynamo.config.disable = True
+                    # Allow torch.compile from lvm.py to work
                     next_tokens, last_pos = model.transformer.decode_img_token_for_gradio(
                         input_action=action_tensor, 
                         position_id=current_state["last_pos"],
                         max_new_tokens=TOKEN_PER_IMAGE + 1
                     )
-                    torch._dynamo.config.disable = False
                 
                 next_tokens = torch.cat(next_tokens, dim=-1).cuda()
                 
