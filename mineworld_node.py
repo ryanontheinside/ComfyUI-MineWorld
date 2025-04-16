@@ -408,7 +408,7 @@ NOOP_ACTION = {
     "camera": np.array([0, 0]), "ESC": 0, "inventory": 0 # Add ESC/inventory if needed by parser
 }
 
-class MineWorldAction:
+class MineWorldGenerateFrame:
     @classmethod
     def INPUT_TYPES(s):
         return {
@@ -504,7 +504,7 @@ class MineWorldAction:
             else:
                 raise ValueError("Failed to generate frame and no previous frames available.")
 
-class MineWorldGenerate:
+class MineWorldGenerateSequence:
     @classmethod
     def INPUT_TYPES(s):
         return {
@@ -632,13 +632,13 @@ class MineWorldGenerate:
 NODE_CLASS_MAPPINGS = {
     "MineWorldModelLoader": MineWorldModelLoader,
     "MineWorldInitialState": MineWorldInitialState,
-    "MineWorldAction": MineWorldAction,
-    "MineWorldGenerate": MineWorldGenerate,
+    "MineWorldGenerateFrame": MineWorldGenerateFrame,
+    "MineWorldGenerateSequence": MineWorldGenerateSequence,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "MineWorldModelLoader": "Load MineWorld Model",
     "MineWorldInitialState": "Initialize MineWorld State",
-    "MineWorldAction": "Apply MineWorld Action",
-    "MineWorldGenerate": "Generate MineWorld Sequence",
+    "MineWorldGenerateFrame": "Generate MineWorld Frame",
+    "MineWorldGenerateSequence": "Generate MineWorld Sequence",
 } 
